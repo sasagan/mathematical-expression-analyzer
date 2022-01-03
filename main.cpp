@@ -8,9 +8,9 @@ using namespace std;
 
 int main()
 {
-int sizeArrNum = 0;
+    int sizeArrNum = 0;
     int sizeArrToken = 0;
-    vector<float> arrNum;
+    vector<double> arrNum;
     vector<char> arrToken;
 
     string f;
@@ -26,7 +26,28 @@ int sizeArrNum = 0;
         }
         else
         {
-            arrNum.push_back(float(f[i]) - float('0'));
+            double num = 0;
+           // float sum = 0;
+            int j = 0;
+            int count = 0;
+            while (c_f[i] == '0' || c_f[i] == '1' || c_f[i] == '2' || c_f[i] == '3' || c_f[i] == '4' || c_f[i] == '5' || c_f[i] == '6' || c_f[i] == '7' || c_f[i] == '8' || c_f[i] == '9')
+            {
+                count++;
+                i++;
+            }
+            //i--;
+            for (int l = 0; count > l; count--)
+            {
+                
+                num += (double(c_f[i-count]) - double('0')) * pow(10, count-1);
+            }
+            /*while (c_f[i] == '0' || c_f[i] == '1' || c_f[i] == '2' || c_f[i] == '3' || c_f[i] == '4' || c_f[i] == '5' || c_f[i] == '6' || c_f[i] == '7' || c_f[i] == '8' || c_f[i] == '9')
+            {
+                num += (float(c_f[i]) - float('0')) / pow(10, j);
+                j++;
+                i++;
+            }*/
+            arrNum.push_back(num);
         }
     }
 
