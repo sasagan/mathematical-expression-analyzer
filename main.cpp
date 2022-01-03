@@ -27,26 +27,19 @@ int main()
         else
         {
             double num = 0;
-           // float sum = 0;
-            int j = 0;
+            int j = i;
             int count = 0;
-            while (c_f[i] == '0' || c_f[i] == '1' || c_f[i] == '2' || c_f[i] == '3' || c_f[i] == '4' || c_f[i] == '5' || c_f[i] == '6' || c_f[i] == '7' || c_f[i] == '8' || c_f[i] == '9')
+            while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
             {
                 count++;
-                i++;
+                j++;
             }
-            //i--;
             for (int l = 0; count > l; count--)
             {
                 
-                num += (double(c_f[i-count]) - double('0')) * pow(10, count-1);
+                num += (double(c_f[j-count]) - double('0')) * pow(10, count-1);
             }
-            /*while (c_f[i] == '0' || c_f[i] == '1' || c_f[i] == '2' || c_f[i] == '3' || c_f[i] == '4' || c_f[i] == '5' || c_f[i] == '6' || c_f[i] == '7' || c_f[i] == '8' || c_f[i] == '9')
-            {
-                num += (float(c_f[i]) - float('0')) / pow(10, j);
-                j++;
-                i++;
-            }*/
+            i = j - 1;
             arrNum.push_back(num);
         }
     }
