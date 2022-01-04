@@ -8,8 +8,6 @@ using namespace std;
 
 int main()
 {
-    int sizeArrNum = 0;
-    int sizeArrToken = 0;
     vector<double> arrNum;
     vector<char> arrToken;
 
@@ -40,11 +38,47 @@ int main()
                 num += (double(c_f[j-count]) - double('0')) * pow(10, count-1);
             }
             i = j - 1;
-            arrNum.push_back(num);
+
+            if (arrToken.size() > 0, arrNum.size() > 0)
+            {
+                if (arrToken[arrToken.size() - 1] == '*')
+                {
+                    arrNum[arrNum.size() - 1] = arrNum[arrNum.size() - 1] * num;
+                    arrToken.pop_back();
+                }
+                else if (arrToken[arrToken.size() - 1] == '/')
+                {
+                    arrNum[arrNum.size() - 1] = arrNum[arrNum.size() - 1] / num;
+                    arrToken.pop_back();
+                }
+                else
+                {
+                    arrNum.push_back(num);
+                }
+            }
+            else
+            {
+                arrNum.push_back(num);
+            }
+            
         }
     }
 
-    cout << "numbers:" << endl;
+    for (int i = 0; i < arrToken.size(); i++)
+    {
+        if (arrToken[arrToken.size() - 1 - i] == '+')
+        {
+            arrNum[arrNum.size() - 2 - i] = arrNum[arrNum.size() - 2 - i] + arrNum[arrNum.size() - 1 - i];
+        }
+        else if (arrToken[arrToken.size() - 1 - i] == '-')
+        {
+            arrNum[arrNum.size() - 2 - i] = arrNum[arrNum.size() - 2 - i] - arrNum[arrNum.size() - 1 - i];
+        }
+    }
+
+    cout << arrNum[0] << endl;
+
+    /*cout << "numbers:" << endl;
     for (int i = 0; i < arrNum.size(); i++)
     {
         cout << arrNum[i] << endl;
@@ -53,7 +87,7 @@ int main()
     for (int i = 0; i < arrToken.size(); i++)
     {
         cout << arrToken[i] << endl;
-    }
+    }*/
 
     return 0;
 }
