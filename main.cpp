@@ -6,6 +6,22 @@
 
 using namespace std;
 
+int pAction(char action)
+{
+    if (action == '*' || action == '/')
+    {
+        return 2;
+    }
+    else if (action == '+' || action == '-')
+    {
+        return 1;
+    }
+    else if (action == '(' || action == ')')
+    {
+        return 0;
+    }
+}
+
 int main()
 {
     vector<double> arrNum;
@@ -18,7 +34,7 @@ int main()
     {
         const char* c_f = f.c_str();
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*')
+        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '(' || c_f[i] == ')')
         {
             arrToken.push_back(c_f[i]);
         }
@@ -38,33 +54,56 @@ int main()
                 num += (double(c_f[j-count]) - double('0')) * pow(10, count-1);
             }
             i = j - 1;
+            arrNum.push_back(num);
 
-            if (arrToken.size() > 0, arrNum.size() > 0)
+            if (arrToken.size() >= 2 and arrNum.size() >= 2)
             {
-                if (arrToken[arrToken.size() - 1] == '*')
+                if (pAction(arrToken[arrToken.size() - 2]) > pAction(arrToken[arrToken.size() - 1]) /*|| pAction(arrToken[arrToken.size() - 2]) == pAction(arrToken[arrToken.size() - 1])  */  )
                 {
-                    arrNum[arrNum.size() - 1] = arrNum[arrNum.size() - 1] * num;
+                    if (arrToken[arrToken.size() - 2] == '*')
+                    {
+                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] * arrNum[arrNum.size() - 2];
+                    }
+                    else if (arrToken[arrToken.size() - 2] == '/')
+                    {
+                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] / arrNum[arrNum.size() - 2];
+                    }
+                    else if (arrToken[arrToken.size() - 2] == '+')
+                    {
+                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] + arrNum[arrNum.size() - 2];
+                    }
+                    else if (arrToken[arrToken.size() - 2] == '-')
+                    {
+                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] - arrNum[arrNum.size() - 2];
+                    }
+                    arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 1];
+                    arrNum.pop_back();
+                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
                     arrToken.pop_back();
                 }
-                else if (arrToken[arrToken.size() - 1] == '/')
+                
+                /*else if (arrToken[arrToken.size() - 2] == '/' and arrToken[arrToken.size() - 1] == '+' || arrToken[arrToken.size() - 1] == '-')
                 {
-                    arrNum[arrNum.size() - 1] = arrNum[arrNum.size() - 1] / num;
+                    arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] / arrNum[arrNum.size() - 2];
+                    arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 1];
+                    arrNum.pop_back();
+                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
                     arrToken.pop_back();
-                }
-                else
+                }*/
+                else 
                 {
-                    arrNum.push_back(num);
+                    continue;
                 }
             }
             else
             {
-                arrNum.push_back(num);
+                continue;
             }
             
         }
     }
 
-    for (int i = 0; i < arrToken.size(); i++)
+    /*for (int i = 0; i < arrToken.size(); i++)
     {
         if (arrToken[arrToken.size() - 1 - i] == '+')
         {
@@ -74,11 +113,11 @@ int main()
         {
             arrNum[arrNum.size() - 2 - i] = arrNum[arrNum.size() - 2 - i] - arrNum[arrNum.size() - 1 - i];
         }
-    }
+    }*/
 
-    cout << arrNum[0] << endl;
+    //cout << arrNum[0] << endl;
 
-    /*cout << "numbers:" << endl;
+    cout << "numbers:" << endl;
     for (int i = 0; i < arrNum.size(); i++)
     {
         cout << arrNum[i] << endl;
@@ -87,7 +126,7 @@ int main()
     for (int i = 0; i < arrToken.size(); i++)
     {
         cout << arrToken[i] << endl;
-    }*/
+    }
 
     return 0;
 }
