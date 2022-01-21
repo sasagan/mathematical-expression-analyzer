@@ -30,6 +30,8 @@ int main()
     string f;
     cin >> f;
 
+    f = f + "+0";
+
     for (int i = 0; i < f.size(); i++)
     {
         const char* c_f = f.c_str();
@@ -56,66 +58,39 @@ int main()
             i = j - 1;
             arrNum.push_back(num);
 
-            if (arrToken.size() >= 2 and arrNum.size() >= 2)
+            //
+           
+            if (arrToken.size() >= 2)
             {
-                if (pAction(arrToken[arrToken.size() - 2]) > pAction(arrToken[arrToken.size() - 1]) /*|| pAction(arrToken[arrToken.size() - 2]) == pAction(arrToken[arrToken.size() - 1])  */  )
+                while (arrToken.size() != 1 && pAction(arrToken[arrToken.size() - 2]) != 0 && pAction(arrToken[arrToken.size() - 2]) >= pAction(arrToken[arrToken.size() - 1]))
                 {
-                    if (arrToken[arrToken.size() - 2] == '*')
+                    switch (arrToken[arrToken.size() - 2])
                     {
+                    case '*':
                         arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] * arrNum[arrNum.size() - 2];
-                    }
-                    else if (arrToken[arrToken.size() - 2] == '/')
-                    {
+                        break;
+                    case '/':
                         arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] / arrNum[arrNum.size() - 2];
-                    }
-                    else if (arrToken[arrToken.size() - 2] == '+')
-                    {
+                        break;
+                    case '+':
                         arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] + arrNum[arrNum.size() - 2];
-                    }
-                    else if (arrToken[arrToken.size() - 2] == '-')
-                    {
+                        break;
+                    case '-':
                         arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] - arrNum[arrNum.size() - 2];
+                        break;
                     }
                     arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 1];
                     arrNum.pop_back();
                     arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
                     arrToken.pop_back();
-                }
-                
-                /*else if (arrToken[arrToken.size() - 2] == '/' and arrToken[arrToken.size() - 1] == '+' || arrToken[arrToken.size() - 1] == '-')
-                {
-                    arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] / arrNum[arrNum.size() - 2];
-                    arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 1];
-                    arrNum.pop_back();
-                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
-                    arrToken.pop_back();
-                }*/
-                else 
-                {
-                    continue;
                 }
             }
             else
             {
                 continue;
             }
-            
-        }
+        }  
     }
-
-    /*for (int i = 0; i < arrToken.size(); i++)
-    {
-        if (arrToken[arrToken.size() - 1 - i] == '+')
-        {
-            arrNum[arrNum.size() - 2 - i] = arrNum[arrNum.size() - 2 - i] + arrNum[arrNum.size() - 1 - i];
-        }
-        else if (arrToken[arrToken.size() - 1 - i] == '-')
-        {
-            arrNum[arrNum.size() - 2 - i] = arrNum[arrNum.size() - 2 - i] - arrNum[arrNum.size() - 1 - i];
-        }
-    }*/
-
-    //cout << arrNum[0] << endl;
 
     cout << "numbers:" << endl;
     for (int i = 0; i < arrNum.size(); i++)
