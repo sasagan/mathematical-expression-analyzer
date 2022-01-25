@@ -9,7 +9,11 @@ using namespace std;
 
 int pAction(char action)
 {
-    if (action == '*' || action == '/')
+    if (action == '^')
+    {
+        return 3;
+    }
+    else if (action == '*' || action == '/')
     {
         return 2;
     }
@@ -37,7 +41,7 @@ int main()
     {
         const char* c_f = f.c_str();
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '(' || c_f[i] == ')')
+        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')')
         {
             if (arrNum.size() < 2)
             {
@@ -63,6 +67,9 @@ int main()
                         case '/':
                             arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
                             break;
+                        case '^':
+                            arrNum[arrNum.size() - 2] = pow(arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                            break;
                         }
                         arrNum.pop_back();
                         arrToken.pop_back();
@@ -87,6 +94,9 @@ int main()
                             break;
                         case '/':
                             arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
+                            break;
+                        case '^':
+                            arrNum[arrNum.size() - 2] = pow(arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
                             break;
                         }
                         arrToken.pop_back();
