@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 int pAction(char action)
 {
     if (action == '*' || action == '/')
@@ -38,7 +39,67 @@ int main()
 
         if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '(' || c_f[i] == ')')
         {
-            arrToken.push_back(c_f[i]);
+            if (arrNum.size() < 2)
+            {
+                arrToken.push_back(c_f[i]);
+            }
+            else if (arrNum.size() >= 2)
+            {
+                if (c_f[i] != ')' && pAction(c_f[i]) != 0 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]))
+                {
+                    while (arrNum.size() >= 2 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]) && pAction(arrToken[arrToken.size() - 1]) != 0)
+                    {
+                        switch (arrToken[arrToken.size() - 1])
+                        {
+                        case '+':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] + arrNum[arrNum.size() - 1];
+                            break;
+                        case '-':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] - arrNum[arrNum.size() - 1];
+                            break;
+                        case '*':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] * arrNum[arrNum.size() - 1];
+                            break;
+                        case '/':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
+                            break;
+                        }
+                        arrNum.pop_back();
+                        arrToken.pop_back();
+                    }
+                    arrToken.push_back(c_f[i]);
+                }
+                else if (c_f[i] == ')')
+                {
+                    
+                    while (arrToken[arrToken.size() - 2] != '(')
+                    {
+                        switch (arrToken[arrToken.size() - 1])
+                        {
+                        case '+':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] + arrNum[arrNum.size() - 1];
+                            break;
+                        case '-':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] - arrNum[arrNum.size() - 1];
+                            break;
+                        case '*':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] * arrNum[arrNum.size() - 1];
+                            break;
+                        case '/':
+                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
+                            break;
+                        }
+                        arrToken.pop_back();
+                        arrNum.pop_back();
+                    }
+                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
+                    arrToken.pop_back();
+                }
+                else
+                {
+                    arrToken.push_back(c_f[i]);
+                }
+            }
         }
         else
         {
@@ -57,38 +118,6 @@ int main()
             }
             i = j - 1;
             arrNum.push_back(num);
-
-            //
-           
-            if (arrToken.size() >= 2)
-            {
-                while (arrToken.size() != 1 && pAction(arrToken[arrToken.size() - 2]) != 0 && pAction(arrToken[arrToken.size() - 2]) >= pAction(arrToken[arrToken.size() - 1]))
-                {
-                    switch (arrToken[arrToken.size() - 2])
-                    {
-                    case '*':
-                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] * arrNum[arrNum.size() - 2];
-                        break;
-                    case '/':
-                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] / arrNum[arrNum.size() - 2];
-                        break;
-                    case '+':
-                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] + arrNum[arrNum.size() - 2];
-                        break;
-                    case '-':
-                        arrNum[arrNum.size() - 3] = arrNum[arrNum.size() - 3] - arrNum[arrNum.size() - 2];
-                        break;
-                    }
-                    arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 1];
-                    arrNum.pop_back();
-                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
-                    arrToken.pop_back();
-                }
-            }
-            else
-            {
-                continue;
-            }
         }  
     }
 
