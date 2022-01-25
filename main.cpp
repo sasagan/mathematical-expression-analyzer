@@ -72,7 +72,7 @@ int main()
                 else if (c_f[i] == ')')
                 {
                     
-                    while (arrToken[arrToken.size() - 2] != '(')
+                    while (arrToken[arrToken.size() - 1] != '(')
                     {
                         switch (arrToken[arrToken.size() - 1])
                         {
@@ -92,7 +92,7 @@ int main()
                         arrToken.pop_back();
                         arrNum.pop_back();
                     }
-                    arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
+                    //arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
                     arrToken.pop_back();
                 }
                 else
@@ -121,7 +121,7 @@ int main()
         }  
     }
 
-    cout << "numbers:" << endl;
+    /*cout << "numbers:" << endl;
     for (int i = 0; i < arrNum.size(); i++)
     {
         cout << arrNum[i] << endl;
@@ -130,7 +130,9 @@ int main()
     for (int i = 0; i < arrToken.size(); i++)
     {
         cout << arrToken[i] << endl;
-    }
+    }*/
+
+    cout << arrNum[0] << endl;
 
     return 0;
 }
