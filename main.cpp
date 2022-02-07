@@ -45,12 +45,22 @@ int main()
         {
             if (arrNum.size() < 2)
             {
+                if (c_f[i] == '(' && c_f[i + 1] == '-')
+                {
+                    arrNum.push_back(0);
+                }
                 arrToken.push_back(c_f[i]);
             }
             else if (arrNum.size() >= 2)
             {
-                if (c_f[i] != ')' && pAction(c_f[i]) != 0 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]))
+                if (c_f[i] == '(' && c_f[i + 1] == '-')
                 {
+                    arrNum.push_back(0);
+                    arrToken.push_back(c_f[i]);
+                }
+                else if (c_f[i] != ')' && pAction(c_f[i]) != 0 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]))
+                {
+                    
                     while (arrNum.size() >= 2 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]) && pAction(arrToken[arrToken.size() - 1]) != 0)
                     {
                         switch (arrToken[arrToken.size() - 1])
@@ -102,14 +112,16 @@ int main()
                         arrToken.pop_back();
                         arrNum.pop_back();
                     }
-                    //arrToken[arrToken.size() - 2] = arrToken[arrToken.size() - 1];
+                    
                     arrToken.pop_back();
                 }
                 else
                 {
+                   
                     arrToken.push_back(c_f[i]);
                 }
             }
+             
         }
         else
         {
