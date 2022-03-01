@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <vector>
+#include <string>
 
 
 using namespace std;
@@ -112,18 +113,27 @@ int main()
         }
         else
         {
-            double num = 0;
+            float num = 0;
+            string snum;
             int j = i;
             int count = 0;
             while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
             {
-                count++;
+                snum += c_f[j];
                 j++;
             }
-            for (int l = 0; count > l; count--)
+            num += stoi(snum);
+            snum.erase();
+            if (c_f[j] == '.')
             {
-
-                num += (double(c_f[j - count]) - double('0')) * pow(10, count - 1);
+                j++;
+                while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
+                {
+                    snum += c_f[j];
+                    count++;
+                    j++;
+                }
+                num += pow(10, -count) * stoi(snum);
             }
             i = j - 1;
             arrNum.push_back(num);
