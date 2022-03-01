@@ -6,8 +6,29 @@
 
 using namespace std;
 
+double action(char Token, double firNum, double secNum) //firNum receives "arrNum[arrNum.size() - 2]"
+{                                                       //secNum receives "arrNum[arrNum.size() - 1]"
+    switch (Token)
+    {
+    case '+':
+        return firNum + secNum;
+        break;
+    case '-':
+        return firNum - secNum;
+        break;
+    case '*':
+        return firNum * secNum;
+        break;
+    case '/':
+        return firNum / secNum;
+        break;
+    case '^':
+        return pow(firNum, secNum);
+        break;
+    }
+}
 
-int pAction(char action)
+int priorityAction(char action)
 {
     if (action == '^')
     {
@@ -58,29 +79,12 @@ int main()
                     arrNum.push_back(0);
                     arrToken.push_back(c_f[i]);
                 }
-                else if (c_f[i] != ')' && pAction(c_f[i]) != 0 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]))
+                else if (c_f[i] != ')' && priorityAction(c_f[i]) != 0 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]))
                 {
-                    
-                    while (arrNum.size() >= 2 && pAction(arrToken[arrToken.size() - 1]) >= pAction(c_f[i]) && pAction(arrToken[arrToken.size() - 1]) != 0)
+
+                    while (arrNum.size() >= 2 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0)
                     {
-                        switch (arrToken[arrToken.size() - 1])
-                        {
-                        case '+':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] + arrNum[arrNum.size() - 1];
-                            break;
-                        case '-':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] - arrNum[arrNum.size() - 1];
-                            break;
-                        case '*':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] * arrNum[arrNum.size() - 1];
-                            break;
-                        case '/':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
-                            break;
-                        case '^':
-                            arrNum[arrNum.size() - 2] = pow(arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
-                            break;
-                        }
+                        arrNum[arrNum.size() - 2] = action(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
                         arrNum.pop_back();
                         arrToken.pop_back();
                     }
@@ -88,40 +92,23 @@ int main()
                 }
                 else if (c_f[i] == ')')
                 {
-                    
+
                     while (arrToken[arrToken.size() - 1] != '(')
                     {
-                        switch (arrToken[arrToken.size() - 1])
-                        {
-                        case '+':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] + arrNum[arrNum.size() - 1];
-                            break;
-                        case '-':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] - arrNum[arrNum.size() - 1];
-                            break;
-                        case '*':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] * arrNum[arrNum.size() - 1];
-                            break;
-                        case '/':
-                            arrNum[arrNum.size() - 2] = arrNum[arrNum.size() - 2] / arrNum[arrNum.size() - 1];
-                            break;
-                        case '^':
-                            arrNum[arrNum.size() - 2] = pow(arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
-                            break;
-                        }
+                        arrNum[arrNum.size() - 2] = action(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
                         arrToken.pop_back();
                         arrNum.pop_back();
                     }
-                    
+
                     arrToken.pop_back();
                 }
                 else
                 {
-                   
+
                     arrToken.push_back(c_f[i]);
                 }
             }
-             
+
         }
         else
         {
@@ -135,12 +122,12 @@ int main()
             }
             for (int l = 0; count > l; count--)
             {
-                
-                num += (double(c_f[j-count]) - double('0')) * pow(10, count-1);
+
+                num += (double(c_f[j - count]) - double('0')) * pow(10, count - 1);
             }
             i = j - 1;
             arrNum.push_back(num);
-        }  
+        }
     }
 
     /*cout << "numbers:" << endl;
