@@ -7,8 +7,8 @@
 
 using namespace std;
 
-double action(char Token, double firNum, double secNum) //firNum receives "arrNum[arrNum.size() - 2]"
-{                                                       //secNum receives "arrNum[arrNum.size() - 1]"
+double simpleAction(char Token, double firNum, double secNum = 0) //firNum receives "arrNum[arrNum.size() - 2]"
+{                                                             //secNum receives "arrNum[arrNum.size() - 1]"
     switch (Token)
     {
     case '+':
@@ -29,9 +29,19 @@ double action(char Token, double firNum, double secNum) //firNum receives "arrNu
     }
 }
 
+/*double difficultAction(char Token, double Num)
+{
+    switch (Token)
+    {
+    case 's':
+        return sin(3.14 / 180 * Num);
+        break;
+    }
+}*/
+
 int priorityAction(char action)
 {
-    if (action == '^')
+    if (action == '^' || action == 's')
     {
         return 3;
     }
@@ -63,19 +73,49 @@ int main()
     {
         const char* c_f = f.c_str();
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')')
+        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n'))
         {
-            if (arrNum.size() < 2)
+            if (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n')
             {
+                arrToken.push_back('s');
+                i += 2;
+            }
+            else if (arrNum.size() < 2)
+            {
+                /*if (arrNum.size() == 1 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0 && arrToken[arrToken.size() - 1] == 's')
+                {
+                    arrNum[arrNum.size() - 1] = difficultAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 1]);
+                    arrToken.pop_back();
+                }*/
+                if (c_f[i] == ')')
+                {
+
+                    while (arrToken[arrToken.size() - 1] != '(')
+                    {
+                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                        arrToken.pop_back();
+                        arrNum.pop_back();
+
+                    }
+                    if (arrToken[arrToken.size() - 2] == 's')
+                    {
+                        arrNum[arrNum.size() - 1] = sin(3.14 / 180 * arrNum[arrNum.size() - 1]);
+                    }
+
+                    arrToken.pop_back();
+                }
+
+
                 if (c_f[i] == '(' && c_f[i + 1] == '-')
                 {
                     arrNum.push_back(0);
                 }
                 arrToken.push_back(c_f[i]);
+
             }
             else if (arrNum.size() >= 2)
             {
-                if (c_f[i] == '(' && c_f[i + 1] == '-')
+               if (c_f[i] == '(' && c_f[i + 1] == '-')
                 {
                     arrNum.push_back(0);
                     arrToken.push_back(c_f[i]);
@@ -85,7 +125,9 @@ int main()
 
                     while (arrNum.size() >= 2 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0)
                     {
-                        arrNum[arrNum.size() - 2] = action(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                        
+                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+
                         arrNum.pop_back();
                         arrToken.pop_back();
                     }
@@ -96,9 +138,14 @@ int main()
 
                     while (arrToken[arrToken.size() - 1] != '(')
                     {
-                        arrNum[arrNum.size() - 2] = action(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
                         arrToken.pop_back();
                         arrNum.pop_back();
+
+                    }
+                    if (arrToken[arrToken.size() - 2] == 's')
+                    {
+                        arrNum[arrNum.size() - 1] = sin(3.14 / 180 * arrNum[arrNum.size() - 1]);
                     }
 
                     arrToken.pop_back();
@@ -140,7 +187,7 @@ int main()
         }
     }
 
-    /*cout << "numbers:" << endl;
+    cout << "numbers:" << endl;
     for (int i = 0; i < arrNum.size(); i++)
     {
         cout << arrNum[i] << endl;
@@ -149,7 +196,7 @@ int main()
     for (int i = 0; i < arrToken.size(); i++)
     {
         cout << arrToken[i] << endl;
-    }*/
+    }
 
     cout << arrNum[0] << endl;
 
