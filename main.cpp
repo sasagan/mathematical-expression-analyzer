@@ -29,15 +29,24 @@ double simpleAction(char Token, double firNum, double secNum = 0) //firNum recei
     }
 }
 
-/*double difficultAction(char Token, double Num)
+double Sin(double num)
 {
-    switch (Token)
+    switch (int(num))
     {
-    case 's':
-        return sin(3.14 / 180 * Num);
+    case 30:
+        return 0.5;
+        break;
+    case 45:
+        return 0.7071;
+        break;
+    case 60:
+        return 0.8660;
+        break;
+    default:
+        return sin(3.1415 / 180 * num);
         break;
     }
-}*/
+}
 
 int priorityAction(char action)
 {
@@ -99,7 +108,7 @@ int main()
                     }
                     if (arrToken[arrToken.size() - 2] == 's')
                     {
-                        arrNum[arrNum.size() - 1] = sin(3.14 / 180 * arrNum[arrNum.size() - 1]);
+                        arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
                     }
 
                     arrToken.pop_back();
@@ -146,6 +155,7 @@ int main()
                     if (arrToken[arrToken.size() - 2] == 's')
                     {
                         arrNum[arrNum.size() - 1] = sin(3.14 / 180 * arrNum[arrNum.size() - 1]);
+                        arrToken.pop_back();
                     }
 
                     arrToken.pop_back();
