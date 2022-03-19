@@ -40,10 +40,28 @@ double Sin(double num)
         return 0.7071;
         break;
     case 60:
-        return 0.8660;
+        return 0.866;
         break;
     default:
         return sin(3.1415 / 180 * num);
+        break;
+    }
+}
+double Cos(double num)
+{
+    switch (int(num))
+    {
+    case 30:
+        return 0.866;
+        break;
+    case 45:
+        return 0.7071;
+        break;
+    case 60:
+        return 0.5;
+        break;
+    default:
+        return cos(3.1415 / 180 * num);
         break;
     }
 }
@@ -82,20 +100,20 @@ int main()
     {
         const char* c_f = f.c_str();
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n'))
+        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n') || (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's'))
         {
             if (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n')
             {
                 arrToken.push_back('s');
                 i += 2;
             }
+            else if (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's')
+            {
+                arrToken.push_back('c');
+                i += 2;
+            }
             else if (arrNum.size() < 2)
             {
-                /*if (arrNum.size() == 1 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0 && arrToken[arrToken.size() - 1] == 's')
-                {
-                    arrNum[arrNum.size() - 1] = difficultAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 1]);
-                    arrToken.pop_back();
-                }*/
                 if (c_f[i] == ')')
                 {
 
@@ -106,11 +124,16 @@ int main()
                         arrNum.pop_back();
 
                     }
-                    if (arrToken[arrToken.size() - 2] == 's')
+                    switch (arrToken[arrToken.size() - 2])
                     {
+                    case 's':
                         arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 'c':
+                        arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                        break;
                     }
-
+                    arrToken.pop_back();
                     arrToken.pop_back();
                 }
 
@@ -152,12 +175,16 @@ int main()
                         arrNum.pop_back();
 
                     }
-                    if (arrToken[arrToken.size() - 2] == 's')
+                    switch (arrToken[arrToken.size() - 2])
                     {
-                        arrNum[arrNum.size() - 1] = sin(3.14 / 180 * arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
+                    case 's':
+                        arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 'c':
+                        arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                        break;
                     }
-
+                    arrToken.pop_back();
                     arrToken.pop_back();
                 }
                 else
