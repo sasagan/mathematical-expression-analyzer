@@ -65,6 +65,42 @@ double Cos(double num)
         break;
     }
 }
+double Ctg(double num)
+{
+    switch (int(num))
+    {
+    case 30:
+        return 1.7321;
+        break;
+    case 45:
+        return 1;
+        break;
+    case 60:
+        return 0.5774;
+        break;
+    default:
+        return Cos(3.1415 / 180 * num)/Sin(3.1415 / 180 * num);
+        break;
+    }
+}
+double Tg(double num)
+{
+    switch (int(num))
+    {
+    case 30:
+        return 0.5774;
+        break;
+    case 45:
+        return 1;
+        break;
+    case 60:
+        return 1.7321;
+        break;
+    default:
+        return Sin(3.1415 / 180 * num) / Cos(3.1415 / 180 * num);
+        break;
+    }
+}
 
 int priorityAction(char action)
 {
@@ -100,7 +136,7 @@ int main()
     {
         const char* c_f = f.c_str();
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n') || (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's'))
+        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n') || (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's') || (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g') || (c_f[i] == 't' && c_f[i + 1] == 'g'))
         {
             if (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n')
             {
@@ -110,6 +146,16 @@ int main()
             else if (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's')
             {
                 arrToken.push_back('c');
+                i += 2;
+            }
+            else if (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g')
+            { 
+                arrToken.push_back('g');
+                i += 2;
+            }
+            else if (c_f[i] == 't' && c_f[i + 1] == 'g')
+            {
+                arrToken.push_back('t');
                 i += 2;
             }
             else if (arrNum.size() < 2)
@@ -131,6 +177,12 @@ int main()
                         break;
                     case 'c':
                         arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 'g':
+                        arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 't':
+                        arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
                         break;
                     }
                     arrToken.pop_back();
@@ -182,6 +234,12 @@ int main()
                         break;
                     case 'c':
                         arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 'g':
+                        arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                        break;
+                    case 't':
+                        arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
                         break;
                     }
                     arrToken.pop_back();
