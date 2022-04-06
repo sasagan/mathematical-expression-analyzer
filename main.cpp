@@ -140,207 +140,209 @@ int main()
     vector<double> arrNum;
     vector<char> arrToken;
 
-    string f;
-    cin >> f;
 
-    f = f + "+0";
 
-    for (int i = 0; i < f.size(); i++)
+    while (true)
     {
-        const char* c_f = f.c_str();
+        string f;
+        cin >> f;
 
-        if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n') || (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's') || (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g') || (c_f[i] == 't' && c_f[i + 1] == 'g') || (c_f[i] == 'l' && c_f[i + 1] == 'n') || (c_f[i] == 'l' && c_f[i + 1] == 'o' && c_f[i + 2] == 'g'))
+        f = f + "+0";
+
+        for (int i = 0; i < f.size(); i++)
         {
-            if (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n')
+            const char* c_f = f.c_str();
+
+            if (c_f[i] == '-' || c_f[i] == '+' || c_f[i] == '/' || c_f[i] == '*' || c_f[i] == '^' || c_f[i] == '(' || c_f[i] == ')' || (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n') || (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's') || (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g') || (c_f[i] == 't' && c_f[i + 1] == 'g') || (c_f[i] == 'l' && c_f[i + 1] == 'n') || (c_f[i] == 'l' && c_f[i + 1] == 'o' && c_f[i + 2] == 'g'))
             {
-                arrToken.push_back('s');
-                i += 2;
-            }
-            else if (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's')
-            {
-                arrToken.push_back('c');
-                i += 2;
-            }
-            else if (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g')
-            { 
-                arrToken.push_back('g');
-                i += 2;
-            }
-            else if (c_f[i] == 't' && c_f[i + 1] == 'g')
-            {
-                arrToken.push_back('t');
-                i += 1;
-            }
-            else if (c_f[i] == 'l' && c_f[i + 1] == 'n')
-            {
-                arrToken.push_back('n');
-                i += 1;
-            }
-            else if (c_f[i] == 'l' && c_f[i + 1] == 'o' && c_f[i + 2] == 'g')
-            {
-                arrToken.push_back('l');
-                i += 2;
-            }
-            else if (arrNum.size() < 2)
-            {
-                if (c_f[i] == ')')
+                if (c_f[i] == 's' && c_f[i + 1] == 'i' && c_f[i + 2] == 'n')
                 {
-
-                    while (arrToken[arrToken.size() - 1] != '(')
+                    arrToken.push_back('s');
+                    i += 2;
+                }
+                else if (c_f[i] == 'c' && c_f[i + 1] == 'o' && c_f[i + 2] == 's')
+                {
+                    arrToken.push_back('c');
+                    i += 2;
+                }
+                else if (c_f[i] == 'c' && c_f[i + 1] == 't' && c_f[i + 2] == 'g')
+                {
+                    arrToken.push_back('g');
+                    i += 2;
+                }
+                else if (c_f[i] == 't' && c_f[i + 1] == 'g')
+                {
+                    arrToken.push_back('t');
+                    i += 1;
+                }
+                else if (c_f[i] == 'l' && c_f[i + 1] == 'n')
+                {
+                    arrToken.push_back('n');
+                    i += 1;
+                }
+                else if (c_f[i] == 'l' && c_f[i + 1] == 'o' && c_f[i + 2] == 'g')
+                {
+                    arrToken.push_back('l');
+                    i += 2;
+                }
+                else if (arrNum.size() < 2)
+                {
+                    if (c_f[i] == ')')
                     {
-                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        arrNum.pop_back();
 
+                        while (arrToken[arrToken.size() - 1] != '(')
+                        {
+                            arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            arrNum.pop_back();
+
+                        }
+                        switch (arrToken[arrToken.size() - 2])
+                        {
+                        case 's':
+                            arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'c':
+                            arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'g':
+                            arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 't':
+                            arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'n':
+                            arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'l':
+                            arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        }
+                        arrToken.pop_back();
                     }
-                    switch (arrToken[arrToken.size() - 2])
+
+
+                    if (c_f[i] == '(' && c_f[i + 1] == '-')
                     {
-                    case 's':
-                        arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'c':
-                        arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'g':
-                        arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 't':
-                        arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'n':
-                        arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'l':
-                        arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    }
-                    arrToken.pop_back();
-                   // i++;
-                }
-
-
-                if (c_f[i] == '(' && c_f[i + 1] == '-')
-                {
-                    arrNum.push_back(0);
-                }
-                arrToken.push_back(c_f[i]);
-
-            }
-            else if (arrNum.size() >= 2)
-            {
-               if (c_f[i] == '(' && c_f[i + 1] == '-')
-                {
-                    arrNum.push_back(0);
-                    arrToken.push_back(c_f[i]);
-                }
-                else if (c_f[i] != ')' && priorityAction(c_f[i]) != 0 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]))
-                {
-
-                    while (arrNum.size() >= 2 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0)
-                    {
-                        
-                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
-
-                        arrNum.pop_back();
-                        arrToken.pop_back();
+                        arrNum.push_back(0);
                     }
                     arrToken.push_back(c_f[i]);
+
                 }
-                else if (c_f[i] == ')')
+                else if (arrNum.size() >= 2)
                 {
-
-                    while (arrToken[arrToken.size() - 1] != '(')
+                    if (c_f[i] == '(' && c_f[i + 1] == '-')
                     {
-                        arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        arrNum.pop_back();
-
+                        arrNum.push_back(0);
+                        arrToken.push_back(c_f[i]);
                     }
-                    switch (arrToken[arrToken.size() - 2])
+                    else if (c_f[i] != ')' && priorityAction(c_f[i]) != 0 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]))
                     {
-                    case 's':
-                        arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'c':
-                        arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'g':
-                        arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 't':
-                        arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'n':
-                        arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
-                    case 'l':
-                        arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
-                        arrToken.pop_back();
-                        break;
+
+                        while (arrNum.size() >= 2 && priorityAction(arrToken[arrToken.size() - 1]) >= priorityAction(c_f[i]) && priorityAction(arrToken[arrToken.size() - 1]) != 0)
+                        {
+
+                            arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+
+                            arrNum.pop_back();
+                            arrToken.pop_back();
+                        }
+                        arrToken.push_back(c_f[i]);
                     }
-                    arrToken.pop_back();
-                   // i++;
-                }
-                else
-                {
+                    else if (c_f[i] == ')')
+                    {
 
-                    arrToken.push_back(c_f[i]);
-                }
-            }
+                        while (arrToken[arrToken.size() - 1] != '(')
+                        {
+                            arrNum[arrNum.size() - 2] = simpleAction(arrToken[arrToken.size() - 1], arrNum[arrNum.size() - 2], arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            arrNum.pop_back();
 
-        }
-        else
-        {
-            float num = 0;
-            string snum;
-            int j = i;
-            int count = 0;
-            while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
-            {
-                snum += c_f[j];
-                j++;
+                        }
+                        switch (arrToken[arrToken.size() - 2])
+                        {
+                        case 's':
+                            arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'c':
+                            arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'g':
+                            arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 't':
+                            arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'n':
+                            arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        case 'l':
+                            arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                            arrToken.pop_back();
+                            break;
+                        }
+                        arrToken.pop_back();
+                    }
+                    else
+                    {
+
+                        arrToken.push_back(c_f[i]);
+                    }
+                }
+
             }
-            num += stoi(snum);
-            snum.erase();
-            if (c_f[j] == '.')
+            else
             {
-                j++;
+                float num = 0;
+                string snum;
+                int j = i;
+                int count = 0;
                 while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
                 {
                     snum += c_f[j];
-                    count++;
                     j++;
                 }
-                num += pow(10, -count) * stoi(snum);
+                num += stoi(snum);
+                snum.erase();
+                if (c_f[j] == '.')
+                {
+                    j++;
+                    while (c_f[j] == '0' || c_f[j] == '1' || c_f[j] == '2' || c_f[j] == '3' || c_f[j] == '4' || c_f[j] == '5' || c_f[j] == '6' || c_f[j] == '7' || c_f[j] == '8' || c_f[j] == '9')
+                    {
+                        snum += c_f[j];
+                        count++;
+                        j++;
+                    }
+                    num += pow(10, -count) * stoi(snum);
+                }
+                i = j - 1;
+                arrNum.push_back(num);
             }
-            i = j - 1;
-            arrNum.push_back(num);
         }
-    }
 
-    cout << "numbers:" << endl;
-    for (int i = 0; i < arrNum.size(); i++)
-    {
-        cout << arrNum[i] << endl;
-    }
-    cout << "tokens:" << endl;
-    for (int i = 0; i < arrToken.size(); i++)
-    {
-        cout << arrToken[i] << endl;
-    }
+        /*cout << "numbers:" << endl;
+        for (int i = 0; i < arrNum.size(); i++)
+        {
+            cout << arrNum[i] << endl;
+        }
+        cout << "tokens:" << endl;
+        for (int i = 0; i < arrToken.size(); i++)
+        {
+            cout << arrToken[i] << endl;
+        }*/
 
-    cout << arrNum[0] << endl;
-
+        cout << arrNum[0] << endl;
+    }
     return 0;
 }
