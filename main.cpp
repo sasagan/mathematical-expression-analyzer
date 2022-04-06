@@ -79,7 +79,7 @@ double Ctg(double num)
         return 0.5774;
         break;
     default:
-        return Cos(3.1415 / 180 * num)/Sin(3.1415 / 180 * num);
+        return Cos(3.1415 / 180 * num) / Sin(3.1415 / 180 * num);
         break;
     }
 }
@@ -137,13 +137,10 @@ int priorityAction(char action)
 
 int main()
 {
-    vector<double> arrNum;
-    vector<char> arrToken;
-
-
-
     while (true)
     {
+        vector<double> arrNum;
+        vector<char> arrToken;
         string f;
         cin >> f;
 
@@ -197,40 +194,44 @@ int main()
                             arrNum.pop_back();
 
                         }
-                        switch (arrToken[arrToken.size() - 2])
+                        if (arrToken.size() >= 2)
                         {
-                        case 's':
-                            arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'c':
-                            arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'g':
-                            arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 't':
-                            arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'n':
-                            arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'l':
-                            arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        }
+                            switch (arrToken[arrToken.size() - 2])
+                            {
+                            case 's':
+                                arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'c':
+                                arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'g':
+                                arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 't':
+                                arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'n':
+                                arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'l':
+                                arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            }
                         arrToken.pop_back();
+                        }
                     }
 
 
                     if (c_f[i] == '(' && c_f[i + 1] == '-')
                     {
                         arrNum.push_back(0);
+                        
                     }
                     arrToken.push_back(c_f[i]);
 
@@ -265,34 +266,37 @@ int main()
                             arrNum.pop_back();
 
                         }
-                        switch (arrToken[arrToken.size() - 2])
+                        if (arrToken.size() >= 2)
                         {
-                        case 's':
-                            arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                            switch (arrToken[arrToken.size() - 2])//на этом моменте программа крашиться из-за arrToken.size() = 0
+                            {
+                            case 's':
+                                arrNum[arrNum.size() - 1] = Sin(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'c':
+                                arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'g':
+                                arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 't':
+                                arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'n':
+                                arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            case 'l':
+                                arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                                arrToken.pop_back();
+                                break;
+                            }
                             arrToken.pop_back();
-                            break;
-                        case 'c':
-                            arrNum[arrNum.size() - 1] = Cos(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'g':
-                            arrNum[arrNum.size() - 1] = Ctg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 't':
-                            arrNum[arrNum.size() - 1] = Tg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'n':
-                            arrNum[arrNum.size() - 1] = Ln(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
-                        case 'l':
-                            arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
-                            arrToken.pop_back();
-                            break;
                         }
-                        arrToken.pop_back();
                     }
                     else
                     {
