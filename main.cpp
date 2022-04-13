@@ -31,87 +31,27 @@ double simpleAction(char Token, double firNum, double secNum = 0) //firNum recei
 
 double Sin(double num)
 {
-    switch (int(num))
-    {
-    case 30:
-        return 0.5;
-        break;
-    case 45:
-        return 0.7071;
-        break;
-    case 60:
-        return 0.866;
-        break;
-    default:
-        return sin(3.1415 / 180 * num);
-        break;
-    }
+    return sin(3.1415 / 180 * num);
 }
 double Cos(double num)
 {
-    switch (int(num))
-    {
-    case 30:
-        return 0.866;
-        break;
-    case 45:
-        return 0.7071;
-        break;
-    case 60:
-        return 0.5;
-        break;
-    default:
-        return cos(3.1415 / 180 * num);
-        break;
-    }
+    return cos(3.1415 / 180 * num);
 }
 double Ctg(double num)
 {
-    switch (int(num))
-    {
-    case 30:
-        return 1.7321;
-        break;
-    case 45:
-        return 1;
-        break;
-    case 60:
-        return 0.5774;
-        break;
-    default:
-        return Cos(3.1415 / 180 * num) / Sin(3.1415 / 180 * num);
-        break;
-    }
+    return Cos(3.1415 / 180 * num) / Sin(3.1415 / 180 * num);
 }
 double Tg(double num)
 {
-    switch (int(num))
-    {
-    case 30:
-        return 0.5774;
-        break;
-    case 45:
-        return 1;
-        break;
-    case 60:
-        return 1.7321;
-        break;
-    default:
-        return Sin(3.1415 / 180 * num) / Cos(3.1415 / 180 * num);
-        break;
-    }
-}
-double Log(double num, double num2)
-{
-    return log(num) / log(num2);
+    return Sin(3.1415 / 180 * num) / Cos(3.1415 / 180 * num);
 }
 double Ln(double num)
 {
-    return Log(num, 2.7183);
+    return log(num) / log(2.7183);
 }
-double Lg(double num)
+double Log(double num)
 {
-    return Log(num, 10);
+    return log(num) / log(10);
 }
 
 
@@ -219,7 +159,7 @@ int main()
                                 arrToken.pop_back();
                                 break;
                             case 'l':
-                                arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                                arrNum[arrNum.size() - 1] = Log(arrNum[arrNum.size() - 1]);
                                 arrToken.pop_back();
                                 break;
                             }
@@ -291,7 +231,7 @@ int main()
                                 arrToken.pop_back();
                                 break;
                             case 'l':
-                                arrNum[arrNum.size() - 1] = Lg(arrNum[arrNum.size() - 1]);
+                                arrNum[arrNum.size() - 1] = Log(arrNum[arrNum.size() - 1]);
                                 arrToken.pop_back();
                                 break;
                             }
