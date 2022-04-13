@@ -164,16 +164,23 @@ int main()
                                 break;
                             }
                         arrToken.pop_back();
+                        //i++;
                         }
+                        
                     }
-
-
+                    else 
+                    {
+                        arrToken.push_back(c_f[i]);
+                    }
                     if (c_f[i] == '(' && c_f[i + 1] == '-')
                     {
                         arrNum.push_back(0);
-                        
+
                     }
-                    arrToken.push_back(c_f[i]);
+                    
+                    
+                    
+                    //;
 
                 }
                 else if (arrNum.size() >= 2)
@@ -236,6 +243,7 @@ int main()
                                 break;
                             }
                             arrToken.pop_back();
+                            //i++;
                         }
                     }
                     else
