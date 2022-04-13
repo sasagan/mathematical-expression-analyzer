@@ -39,11 +39,11 @@ double Cos(double num)
 }
 double Ctg(double num)
 {
-    return Cos(3.1415 / 180 * num) / Sin(3.1415 / 180 * num);
+    return 1/tan(3.1415 / 180 * num);
 }
 double Tg(double num)
 {
-    return Sin(3.1415 / 180 * num) / Cos(3.1415 / 180 * num);
+    return tan(3.1415 / 180 * num);
 }
 double Ln(double num)
 {
